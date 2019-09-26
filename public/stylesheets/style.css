@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Varela+Round&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
 html {
   overflow: scroll;
   overflow-x: hidden; }
@@ -22,6 +24,9 @@ body {
   color: white;
   background-color: #505050; }
 
+a {
+  color: #00B7FF; }
+
 .btn-link {
   font-weight: 400;
   color: cornflowerblue;
@@ -31,5 +36,105 @@ body {
 .btn-link:hover {
   color: gold;
   text-decoration: underline; }
+
+.background {
+  background-image: url("/images/cinema.jpg");
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  position: relative;
+  overflow: hidden; }
+
+.title {
+  position: absolute;
+  top: 20%;
+  left: 50%; }
+
+.title h1 {
+  font-size: 6em;
+  color: white;
+  margin-bottom: 20px; }
+
+.title a {
+  color: #669eaf;
+  background: white;
+  padding: 20px 40px;
+  border-radius: 60px;
+  font-size: 1.2em;
+  text-decoration: none;
+  -webkit-box-shadow: 10px 11px 5px -10px rgba(0, 0, 0, 0.9);
+  -moz-box-shadow: 10px 11px 5px -10px rgba(0, 0, 0, 0.9);
+  box-shadow: 10px 11px 5px -10px rgba(0, 0, 0, 0.9); }
+
+.card-img-top {
+  padding: 10px;
+  object-fit: cover;
+  height: 80%; }
+
+.movies-head {
+  padding: 20px;
+  margin-left: 50px; }
+
+@media (min-width: 576px) {
+  .col-sm {
+    flex-grow: 0 !important; } }
+
+.movie-description {
+  max-width: 70%; }
+
+.hidden {
+  display: none; }
+
+.celeb-img {
+  border-radius: 20px;
+  padding: 10px;
+  border: 1px double rgba(182, 182, 182, 0.733);
+  -webkit-box-shadow: 10px 11px 5px -10px rgba(58, 2, 2, 0.7);
+  -moz-box-shadow: 10px 11px 5px -10px rgba(0, 0, 0, 0.7);
+  box-shadow: 10px 11px 5px -10px rgba(0, 0, 0, 0.7);
+  object-fit: cover;
+  width: 30vw; }
+
+.card-body {
+  padding: 1rem; }
+
+.btn-sm {
+  margin: 0 2.5px 0 2.5px; }
+
+.error-message {
+  background: #F02B63;
+  box-sizing: border-box;
+  color: #fff;
+  margin: 20px auto;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+  border-radius: 10px; }
+
+.google-link {
+  font-family: 'Roboto'; }
+
+.google-svg {
+  width: 20px;
+  padding-bottom: 2px;
+  margin-left: 5px; }
+
+.success-message {
+  background: rgba(43, 240, 53, 0.75);
+  box-sizing: border-box;
+  color: #fff;
+  margin: 20px auto;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+  border-radius: 10px; }
+
+@media (min-width: 750px) {
+  .user-form {
+    width: 50%;
+    margin-left: 50px; } }
+
+.smaller {
+  width: 250px; }
 
 /*# sourceMappingURL=style.css.map */

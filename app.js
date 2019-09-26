@@ -156,16 +156,19 @@ app.use("/", index);
 const userRoutes = require("./routes/user-routes");
 app.use("/", userRoutes);
 
-const adminRoutes = require("./routes/admin-routes");
-app.use("/", adminRoutes);
 
 const ingredientsARoutes = require("./routes/ingredients-a-routes");
 app.use("/", ingredientsARoutes);
+
 
 const ingredientsBRoutes = require("./routes/ingredients-b-routes");
 app.use("/", ingredientsBRoutes);
 
 const mealRoutes = require("./routes/meal-routes");
 app.use("/", mealRoutes);
+
+
+const adminRoutes = require("./routes/admin-routes");
+app.use("/", adminRoutes);
 
 module.exports = app;

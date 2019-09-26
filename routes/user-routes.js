@@ -1,10 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
+const IngredientA = require("../models/IngredientA");
+const IngredientB = require("../models/IngredientB");
+const Meal = require("../models/Meal");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
-const uploadCloud = require('../config/cloudinary-settings.js');
-const multer  = require('multer');
+const uploadCloud = require("../config/cloudinary-settings.js");
+const multer = require("multer");
 
 router.get("/signup", (req, res, next) => {
   res.render("user-views/signup");
@@ -30,7 +33,7 @@ router.post("/signup", (req, res, next) => {
   User.create({
     username: username,
     password: hash,
-    isAdmin: adminPrivilege,
+    isAdmin: adminPrivilege
   })
     .then(() => {
       res.redirect("/login");
@@ -59,6 +62,33 @@ router.post("/logout", (req, res, next) => {
   res.redirect("/");
 });
 
+router.get("/profile", (req, res, next) => {
+  IngredientA.find({ creator: { $in: req.user.id } })
+    .then(myA => {
+      IngredientB.find({ creator: { $in: req.user.id } })
+        .then(myB => {
+          Meal.find({ creator: { $in: req.user.id } })
+            .populate("first")
+            .populate("second")
+            .then(myMeals => {
+              res.render("user-views/profile", {
+                ingredientsA: myA,
+                ingredientsB: myB,
+                meals: myMeals
+              });
+            })
+            .catch(err => {
+              next(err);
+            });
+        })
+        .catch(err => {
+          next(err);
+        });
+    })
+    .catch(err => {
+      next(err);
+    });
+});
 
 router.get("/account", (req, res, next) => {
   if (!req.user) {
@@ -69,62 +99,63 @@ router.get("/account", (req, res, next) => {
 });
 
 router.post("/account/google-update", (req, res, next) => {
-    User.findByIdAndUpdate(req.user.id, {
-      username: req.body.theUsername
+  User.findByIdAndUpdate(req.user.id, {
+    username: req.body.theUsername
+  })
+    .then(data => {
+      req.flash("success", "Your settings have been saved");
+      res.redirect("/account");
     })
-      .then(data => {
-        req.flash("success", "Your settings have been saved");
-        res.redirect("/account");
-      })
-      .catch(err => next(err));
-  }
-)
-
-router.post("/account/update", uploadCloud.single("theImage"), (req, res, next) => {
-
-  let id = req.user.id;
-  let oldPass = req.body.theOldPassword;
-  let newPass = req.body.theNewPassword;
-
-  if (!bcrypt.compareSync(oldPass, req.user.password)) {
-    req.flash("error", "Passwords do not match");
-    res.redirect("/account");
-  }
-
-  const salt = bcrypt.genSaltSync(10);
-  let hash;
-  if (newPass) {
-    hash = new Promise((resolve, reject) => {
-      resolve(bcrypt.hashSync(newPass, salt));
-    });
-  } else {
-    hash = new Promise((resolve, reject) => {
-      resolve(bcrypt.hashSync(oldPass, salt));
-    });
-  }
-
-  hash
-    .then(theActualPassword => {
-
-      let userObj = {};
-      userObj.username = req.body.theUsername;
-      userObj.password = theActualPassword;
-      if(req.file){
-        userObj.profileImage = req.file.url;
-      }
-      User.findByIdAndUpdate(id, userObj)
-        .then(result => {
-          req.flash("success", "Your settings have been saved");
-          res.redirect("/account");
-        })
-        .catch(err => {
-          next(err);
-        });
-    })
-    .catch(err => {
-      next(err);
-    });
+    .catch(err => next(err));
 });
+
+router.post(
+  "/account/update",
+  uploadCloud.single("theImage"),
+  (req, res, next) => {
+    let id = req.user.id;
+    let oldPass = req.body.theOldPassword;
+    let newPass = req.body.theNewPassword;
+
+    if (!bcrypt.compareSync(oldPass, req.user.password)) {
+      req.flash("error", "Passwords do not match");
+      res.redirect("/account");
+    }
+
+    const salt = bcrypt.genSaltSync(10);
+    let hash;
+    if (newPass) {
+      hash = new Promise((resolve, reject) => {
+        resolve(bcrypt.hashSync(newPass, salt));
+      });
+    } else {
+      hash = new Promise((resolve, reject) => {
+        resolve(bcrypt.hashSync(oldPass, salt));
+      });
+    }
+
+    hash
+      .then(theActualPassword => {
+        let userObj = {};
+        userObj.username = req.body.theUsername;
+        userObj.password = theActualPassword;
+        if (req.file) {
+          userObj.profileImage = req.file.url;
+        }
+        User.findByIdAndUpdate(id, userObj)
+          .then(result => {
+            req.flash("success", "Your settings have been saved");
+            res.redirect("/account");
+          })
+          .catch(err => {
+            next(err);
+          });
+      })
+      .catch(err => {
+        next(err);
+      });
+  }
+);
 
 router.post("/account/delete-my-account", (req, res, next) => {
   User.findByIdAndRemove(req.user.id)

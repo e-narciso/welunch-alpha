@@ -7,6 +7,7 @@ const uploadCloud = require("../config/cloudinary-settings.js");
 const multer  = require('multer');
 
 router.get("/ingredients-a", (req, res, next) => {
+ 
   IngredientA.find()
     .then(allTheIngredients => {
       if (req.user) {
@@ -72,6 +73,7 @@ router.post(
     ingredientObj.name = req.body.theName;
     ingredientObj.data = req.body.theData;
     ingredientObj.description = req.body.theDescription;
+    ingredientObj.creator = req.user._id;
     if (req.file) {
       ingredientObj.image = req.file.url;
     }

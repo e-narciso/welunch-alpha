@@ -4,29 +4,39 @@ const User = require("../models/User");
 const IngredientB = require("../models/IngredientB");
 const Meal = require("../models/Meal");
 const uploadCloud = require("../config/cloudinary-settings.js");
-const multer  = require('multer');
+const multer = require("multer");
 
 router.get("/ingredients-b", (req, res, next) => {
-  IngredientB.find()
-    .then(allTheIngredients => {
-      if (req.user) {
-        allTheIngredients.forEach(eachIngredient => {
-          if (req.user._id.equals(eachIngredient.creator) || req.user.isAdmin) {
-            eachIngredient.mine = true;
-          }
-        });
-      }
-      Meal.find().then(allTheMeals => {
-        // allTheMeals.forEach(meal => {
+  Meal.find()
+    .then(allTheMeals => {
+      IngredientB.find().then(allTheIngredients => {
+        if (req.user) {
+          allTheIngredients.forEach(eachIngredient => {
+            if (
+              req.user._id.equals(eachIngredient.creator) ||
+              req.user.isAdmin
+            ) {
+              eachIngredient.mine = true;
+            }
 
-        // })
-        console.log(allTheIngredients);
+            eachIngredient.mealsCreated = [];
+            allTheMeals.forEach(eachMeal => {
+              if (eachMeal.second == eachIngredient._id) {
+                eachIngredient.mealsCreated.push(eachMeal);
+              }
+            });
+            // eachingredient.mealscreated = [];
+            // loop through all the meals
+            // if eachmeal.second includes eachIngredient
+            // push the meal into that array
+          });
+        }
+        console.log(allTheMeals);
         res.render("ingredient-b-views/index", {
           ingredientsB: allTheIngredients,
-          meals: allTheMeals
+          meals: allTheMeals,
         });
       });
-      // res.send({ ingredientsA: allTheIngredients })
     })
     .catch(err => {
       next(err);
@@ -73,6 +83,7 @@ router.post(
     ingredientObj.name = req.body.theName;
     ingredientObj.data = req.body.theData;
     ingredientObj.description = req.body.theDescription;
+    ingredientObj.creator = req.user._id;
     if (req.file) {
       ingredientObj.image = req.file.url;
     }

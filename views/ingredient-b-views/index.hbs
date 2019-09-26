@@ -26,11 +26,11 @@
     {{/each}}
   </ul>
     <div class="card-body">
-      {{#each filteredMeals}}
+      {{#each this.mealsCreated}}
     <a href="/meals/details/{{this._id}}" class="btn-link"><em>{{this.name}}</em></a>
     {{/each}}
   </div>
-    {{#if ../theUser.isAdmin}}
+    {{#if this.mine}}
     <div class="form-inline justify-content-center">
       <a href="/ingredients-b/edit/{{ this._id }}" class="btn btn-secondary btn-sm"
         >Edit Ingredient</a

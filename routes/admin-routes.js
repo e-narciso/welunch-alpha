@@ -9,10 +9,16 @@ router.use((req, res, next) => {
     req.flash("error", "please log in to use this feature");
     res.redirect("/login");
   }
+
+if(req.user){
+
   if (!req.user.isAdmin) {
     req.flash("error", "you do not have access to this feature");
     res.redirect("/");
   }
+}
+
+
   next();
 }
 )

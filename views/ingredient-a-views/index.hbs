@@ -2,13 +2,13 @@
   {{#each ingredientsA}}
   <div class="col-md-3 artist mx-auto d-block text-center" style="margin-bottom: 10px">
     <div class="card">
-    <a href="/ingredients-a/details/{{ this._id }}">
+    {{!-- <a href="/ingredients-a/details/{{ this._id }}"> --}}
       <img
         class="card-img-top mx-auto d-block"
         src="{{ this.image }}"
         onerror="if (this.src != '/images/dubious.png') this.src = '/images/dubious.png';"
       />
-    </a>
+    {{!-- </a> --}}
 
     
       <div class="card-title text-center">
