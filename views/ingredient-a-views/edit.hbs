@@ -1,0 +1,58 @@
+<h2 class="movies-head">Edit Information for <em>{{ ingredient.name }}</em></h2>
+
+<form
+  action="/ingredients-a/update/{{ ingredient._id }}"
+  method="POST"
+  style="width:500px; margin-left:100px"
+>
+  <div class="form-group">
+    <label for="ingredientName">Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="ingredientName"
+      aria-describedby="nameHelp"
+      value="{{ ingredient.name }}"
+      name="theName"
+    />
+  </div>
+    <div class="form-group">
+    <label for="theData">Meal Name Components</label>
+  {{#each ingredient.data}}
+    <input
+      type="text"
+      class="form-control"
+      aria-describedby="dataHelp"
+      value="{{this}}"
+      name="theData"
+    />
+    <br />
+  {{/each}}
+  </div>
+  <div class="form-group">
+    <label for="ingredientDescription">Describe Ingredient</label>
+    <textarea
+      class="form-control"
+      id="ingredientDescription"
+      aria-describedby="descriptionHelp"
+      name="theDescription"
+      rows="3"
+    >{{ingredient.description}}</textarea>
+  </div>
+  <div class="form-group">
+    <label for="ingredientImage">Upload Photograph or Fanart</label>
+        <input
+      type="file"
+      class="form-control smaller"
+      id="ingredientImage"
+      aria-describedby="imageHelp"
+      value="{{ ingredient.image }}"
+      name="theImage"
+    />
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+  <a href="/ingredients-a" class="btn btn-secondary">Cancel</a>
+</form>
+      <form action="/ingredients-a/delete/{{ this._id }}" method="POST">
+        <button class="btn btn-danger btn-sm" style="margin-left:100px; margin-top:5px">Delete Ingredient</button>
+      </form>

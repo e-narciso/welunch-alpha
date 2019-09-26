@@ -1,0 +1,50 @@
+<div class="row mx-auto text-center">
+  {{#each ingredientsA}}
+  <div class="col-md-3 artist mx-auto d-block text-center" style="margin-bottom: 10px">
+    <div class="card">
+    <a href="/ingredients-a/details/{{ this._id }}">
+      <img
+        class="card-img-top mx-auto d-block"
+        src="{{ this.image }}"
+        onerror="if (this.src != '/images/dubious.png') this.src = '/images/dubious.png';"
+      />
+    </a>
+
+    
+      <div class="card-title text-center">
+          <h5 class="btn-link">
+            <em>{{ this.name }}</em>
+          </h5>
+        {{!-- <button class="fetch-details-button" data-id="{{ this._id }}">
+          See Details
+        </button> --}}
+      </div>
+      <div class="card-body text-left">
+        <p class="card-text">{{this.description}}</p>
+      </div>
+  <ul class="list-group list-group-flush text-left">
+    {{#each this.data}}
+    <li class="list-group-item" style="color: black" >{{this}}...</li>
+    {{/each}}
+  </ul>
+    <div class="card-body">
+      {{#each filteredMeals}}
+    <a href="/meals/details/{{this._id}}" class="btn-link"><em>{{this.name}}</em></a>
+    {{/each}}
+  </div>
+    {{#if ../theUser.isAdmin}}
+    <div class="form-inline justify-content-center">
+      <a href="/ingredients-a/edit/{{ this._id }}" class="btn btn-secondary btn-sm"
+        >Edit Ingredient</a
+      >
+      <form action="/ingredients-a/delete/{{ this._id }}" method="POST">
+        <button class="btn btn-danger btn-sm">Delete Ingredient</button>
+      </form>
+    </div>
+    {{/if}}
+    </div>
+
+  </div>
+
+  {{/each}}
+</div>

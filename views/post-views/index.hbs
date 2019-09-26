@@ -1,0 +1,35 @@
+<div class="row mx-auto text-center">
+  {{#each posts}}
+  <div class="col-lg artist mx-auto d-block text-center">
+    {{#if this.image}}
+    <a href="/posts/details/{{ this._id }}">
+      <img
+        class="card-img-top mx-auto d-block"
+        src="{{ this.image }}"
+        onerror="if (this.src != 'https://cdn.sstatic.net/Sites/stackoverflow/img/404.svg') this.src = 'https://cdn.sstatic.net/Sites/stackoverflow/img/404.svg';"
+      />
+    </a>
+{{/if}}
+    <div class="card-body text-center">
+      <div class="card-body">
+        <p>{{this.body}}</p>
+      </div>
+      <div class="card-comments">
+        <p>{{#each comments}}</p>
+      </div>
+    </div>
+
+    {{#if this.mine}}
+    <div class="form-inline justify-content-center">
+      <a href="/posts/edit/{{ this._id }}" class="btn btn-secondary btn-sm"
+        >Edit Post</a
+      >
+      <form action="/posts/delete/{{ this._id }}" method="POST">
+        <button class="btn btn-danger btn-sm">Delete Post</button>
+      </form>
+    </div>
+    {{/if}}
+  </div>
+
+  {{/each}}
+</div>

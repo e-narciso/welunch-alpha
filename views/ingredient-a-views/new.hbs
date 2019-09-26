@@ -1,0 +1,68 @@
+<h2 class="movies-head">Add a New Ingredient</h2>
+
+<form
+  action="/ingredients-a/creation"
+  method="POST"
+  style="width:500px; margin-left:100px"
+>
+  <div class="form-group">
+    <label for="ingredientName">Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="ingredientName"
+      aria-describedby="nameHelp"
+      placeholder="Name"
+      name="theName"
+    />
+  </div>
+  <div class="form-group">
+    <label for="theData">Meal Name Components</label>
+    <input
+      type="text"
+      class="form-control"
+      aria-describedby="dataHelp"
+      placeholder="The beggining of..."
+      name="theData"
+    />
+    <br />
+    <input
+      type="text"
+      class="form-control"
+      aria-describedby="dataHelp"
+      placeholder="A plate of..."
+      name="theData"
+    />
+    <br />
+    <input
+      type="text"
+      class="form-control"
+      aria-describedby="dataHelp"
+      placeholder="First part of..."
+      name="theData"
+    />
+  </div>
+  <div class="form-group">
+    <label for="ingredientDescription">Describe Ingredient</label>
+    <textarea
+      class="form-control"
+      id="ingredientDescription"
+      aria-describedby="descriptionHelp"
+      name="theDescription"
+      placeholder="This is where you add a description to the ingredient."
+      rows="3"
+    ></textarea>
+  </div>
+  <div class="form-group">
+    <label for="ingredientImage">Upload Photograph or Fanart</label>
+        <input
+      type="file"
+      class="form-control smaller"
+      id="ingredientImage"
+      aria-describedby="imageHelp"
+      name="theImage"
+    />
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+  <a href="/ingredients-a" class="btn btn-secondary">Cancel</a>
+</form>
