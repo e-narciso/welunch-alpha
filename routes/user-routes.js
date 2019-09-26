@@ -4,6 +4,7 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const uploadCloud = require('../config/cloudinary-settings.js');
+const multer  = require('multer');
 
 router.get("/signup", (req, res, next) => {
   res.render("user-views/signup");

@@ -4,6 +4,7 @@ const User = require("../models/User");
 const IngredientB = require("../models/IngredientB");
 const Meal = require("../models/Meal");
 const uploadCloud = require("../config/cloudinary-settings.js");
+const multer  = require('multer');
 
 router.get("/ingredients-b", (req, res, next) => {
   IngredientB.find()
