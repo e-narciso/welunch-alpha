@@ -3,7 +3,7 @@ const IngredientA = require("../models/IngredientA");
 const IngredientB = require("../models/IngredientB");
 
 mongoose
-  .connect("mongodb://localhost/welunch-pre-alpha", { useNewUrlParser: true })
+  .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
   .then(x =>
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   )
