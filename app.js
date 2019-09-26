@@ -1,58 +1,60 @@
-require('dotenv').config();
+require("dotenv").config();
 
-const bodyParser   = require('body-parser');
-const cookieParser = require('cookie-parser');
-const express      = require('express');
-const favicon      = require('serve-favicon');
-const hbs          = require('hbs');
-const mongoose     = require('mongoose');
-const logger       = require('morgan');
-const path         = require('path');
-const session = require("express-session");
-const MongoStore = require("connect-mongo")(session);
-const flash = require("connect-flash");
-const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
-const User = require("./models/User");
-const bcrypt = require("bcryptjs");
+const bodyParser     = require("body-parser");
+const cookieParser   = require("cookie-parser");
+const express        = require("express");
+const favicon        = require("serve-favicon");
+const hbs            = require("hbs");
+const mongoose       = require("mongoose");
+const logger         = require("morgan");
+const path           = require("path");
+const session        = require("express-session");
+const MongoStore     = require("connect-mongo")(session);
+const flash          = require("connect-flash");
+const passport       = require("passport");
+const LocalStrategy  = require("passport-local").Strategy;
+const User           = require("./models/User");
+const bcrypt         = require("bcryptjs");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
-
 mongoose
-  .connect('mongodb://localhost/welunch-pre-alpha', {useNewUrlParser: true})
+  .connect(process.env.MONGO_URI, { useNewUrlParser: true })
   .then(x => {
-    console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
+    console.log(
+      `Connected to Mongo! Database name: "${x.connections[0].name}"`
+    );
   })
   .catch(err => {
-    console.error('Error connecting to mongo', err)
+    console.error("Error connecting to mongo", err);
   });
 
-const app_name = require('./package.json').name;
-const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
+const app_name = require("./package.json").name;
+const debug = require("debug")(
+  `${app_name}:${path.basename(__filename).split(".")[0]}`
+);
 
 const app = express();
 
 // Middleware Setup
-app.use(logger('dev'));
+app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // Express View engine setup
 
-app.use(require('node-sass-middleware')({
-  src:  path.join(__dirname, 'public'),
-  dest: path.join(__dirname, 'public'),
-  sourceMap: true
-}));
-      
+app.use(
+  require("node-sass-middleware")({
+    src: path.join(__dirname, "public"),
+    dest: path.join(__dirname, "public"),
+    sourceMap: true
+  })
+);
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
-
-
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "hbs");
+app.use(express.static(path.join(__dirname, "public")));
+app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 
 app.use(
   session({
@@ -99,7 +101,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
-      callbackURL: "/auth/google/callback",
+      callbackURL: "/auth/google/callback"
     },
     (accessToken, refreshToken, profile, done) => {
       // to see the structure of the data in received response:
@@ -113,14 +115,14 @@ passport.use(
           }
 
           let theImage = "";
-          if(profile.photos){
+          if (profile.photos) {
             theImage = profile._json.picture;
           }
           User.create({
             username: profile._json.name,
             googleID: profile.id,
             isAdmin: false,
-            profileImage: theImage,
+            profileImage: theImage
           })
             .then(newUser => {
               done(null, newUser);
@@ -148,10 +150,8 @@ app.use((req, res, next) => {
   next();
 });
 
-
-
-const index = require('./routes/index');
-app.use('/', index);
+const index = require("./routes/index");
+app.use("/", index);
 
 const userRoutes = require("./routes/user-routes");
 app.use("/", userRoutes);
@@ -159,10 +159,13 @@ app.use("/", userRoutes);
 const adminRoutes = require("./routes/admin-routes");
 app.use("/", adminRoutes);
 
-const ingredientsARoutes=  require("./routes/ingredients-a-routes");
+const ingredientsARoutes = require("./routes/ingredients-a-routes");
 app.use("/", ingredientsARoutes);
 
-const ingredientsBRoutes=  require("./routes/ingredients-b-routes");
+const ingredientsBRoutes = require("./routes/ingredients-b-routes");
 app.use("/", ingredientsBRoutes);
+
+const mealRoutes = require("./routes/meal-routes");
+app.use("/", mealRoutes);
 
 module.exports = app;

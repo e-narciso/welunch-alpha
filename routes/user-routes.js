@@ -126,7 +126,7 @@ router.post("/account/update", uploadCloud.single("theImage"), (req, res, next) 
 });
 
 router.post("/account/delete-my-account", (req, res, next) => {
-  User.findByIdAndRemove(req.user._id)
+  User.findByIdAndRemove(req.user.id)
     .then(() => {
       res.redirect("/");
     })
