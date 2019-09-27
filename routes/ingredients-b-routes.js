@@ -18,23 +18,19 @@ router.get("/ingredients-b", (req, res, next) => {
             ) {
               eachIngredient.mine = true;
             }
-
-            eachIngredient.mealsCreated = [];
-            allTheMeals.forEach(eachMeal => {
-              if (eachMeal.second == eachIngredient._id) {
-                eachIngredient.mealsCreated.push(eachMeal);
-              }
-            });
-            // eachingredient.mealscreated = [];
-            // loop through all the meals
-            // if eachmeal.second includes eachIngredient
-            // push the meal into that array
           });
         }
-        console.log(allTheMeals);
+        allTheIngredients.forEach(eachIngredient => {
+          eachIngredient.mealsCreated = [];
+          allTheMeals.forEach((eachMeal, i) => {
+            if (eachMeal.second.equals(eachIngredient._id)) {
+              eachIngredient.mealsCreated.push(eachMeal);
+            }
+          });
+        });
         res.render("ingredient-b-views/index", {
           ingredientsB: allTheIngredients,
-          meals: allTheMeals,
+          meals: allTheMeals
         });
       });
     })
@@ -42,29 +38,6 @@ router.get("/ingredients-b", (req, res, next) => {
       next(err);
     });
 });
-
-// router.get("/ingredients-a/details/:id", (req, res, next) => {
-//   let id = req.params.id;
-//   IngredientA.findById(id)
-//     .then(ingredientObject => {
-//       Meal.find({
-//         first: id
-//       })
-//         .then(result => {
-//           console.log(result);
-//           res.render("ingredients-a-views/show", {
-//             ingredient: ingredientObject,
-//             filteredMeals: result
-//           });
-//         })
-//         .catch(err => {
-//           next(err);
-//         });
-//     })
-//     .catch(err => {
-//       next(err);
-//     });
-// });
 
 router.get("/ingredients-b/add-new", (req, res, next) => {
   if (!req.user) {
@@ -101,7 +74,13 @@ router.post("/ingredients-b/delete/:id", (req, res, next) => {
   let id = req.params.id;
   IngredientB.findByIdAndRemove(id)
     .then(result => {
-      res.redirect("/ingredients-b");
+      Meal.deleteMany({ second: { $in: id } }).then(data => {
+        console.log(data)
+        res.redirect("/ingredients-b");
+      })
+      .catch(err => {
+        next(err);
+      });
     })
     .catch(err => {
       next(err);

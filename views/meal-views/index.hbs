@@ -1,6 +1,9 @@
+<div class="movies-head">
+  <h2>All Created Meals</h2>
+</div>
 <div class="row mx-auto text-center">
   {{#each meals}}
-  <div class="col-lg-6 artist mx-auto d-block text-center" style="margin-bottom: 10px">
+  <div class="col-md-4 artist mx-auto d-block text-center" style="margin-bottom: 10px">
     <div class="card">
     <a href="/meals/details/{{ this._id }}">
       <img
@@ -12,19 +15,18 @@
 
     
       <div class="card-title text-center">
+        <a href="/meals/details/{{ this._id }}">
           <h5 class="btn-link">
             <em>{{ this.name }}</em>
           </h5>
+          </a>
         {{!-- <button class="fetch-details-button" data-id="{{ this._id }}">
           See Details
         </button> --}}
       </div>
-      <div class="card-body text-left">
-        <p class="card-text">{{this.body}}</p>
-      </div>
   <ul class="list-group list-group-flush text-left">
-    <li class="list-group-item" style="color: black" >{{this.first.name}}...</li>
-    <li class="list-group-item" style="color: black" >{{this.second.name}}...</li>
+    <li class="list-group-item" style="color: black" >Ingredient A: {{this.first.name}}</li>
+    <li class="list-group-item" style="color: black" >Ingredient B: {{this.second.name}}</li>
   </ul>
     {{!-- <div class="card-body">
       {{#each filteredMeals}}
@@ -32,12 +34,12 @@
     {{/each}}
   </div> --}}
     {{#if this.mine}}
-    <div class="form-inline justify-content-center">
-      <a href="/ingredients-a/edit/{{ this._id }}" class="btn btn-secondary btn-sm"
-        >Edit Ingredient</a
+    <div class="form-inline justify-content-center ed-buttons">
+      <a href="/meals/edit/{{ this._id }}" class="btn btn-secondary btn-sm"
+        >Edit Meal</a
       >
-      <form action="/ingredients-a/delete/{{ this._id }}" method="POST">
-        <button class="btn btn-danger btn-sm">Delete Ingredient</button>
+      <form action="/meals/delete/{{ this._id }}" method="POST">
+        <button class="btn btn-danger btn-sm">Delete Meal</button>
       </form>
     </div>
     {{/if}}

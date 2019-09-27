@@ -1,0 +1,48 @@
+<div class="row justify-content-center selected-meal">
+  <div class="col-sm-5">
+    <img
+      class="meal-img"
+      src="{{ meal.image }}"
+      onerror="if (this.src != '/images/dubious.png') this.src = '/images/dubious.png';"
+    />
+  </div>
+  <div class="col-lg-7 meal-info">
+    <a class="btn-link" href="/meals">Back to Meals</a>
+    <br />
+    <br />
+    <div class="content-heading">
+      <h4>
+        <b>{{ meal.name }}</b>
+      </h4>
+    </div>
+
+    <h5 class="content-tagline">
+      <b
+        >First Ingredient:
+        <span class="btn-link">{{ meal.first.name }}</span></b
+      >
+    </h5>
+    <h5 class="content-tagline">
+      <b
+        >Second Ingredient:
+        <span class="btn-link">{{ meal.second.name }}</span></b
+      >
+    </h5>
+    <div class="meal-body">
+<h5>Recipe:</h5>
+      <div id="recipe">{{{ meal.body }}}</div>
+     
+      </div>
+    <br />
+    {{#if meal.mine}}
+    <div class="form-inline ed-buttons">
+      <a href="/meals/edit/{{ meal._id }}" class="btn btn-secondary btn-sm" 
+        >Edit Meal</a
+      >
+      <form action="/meals/delete/{{ meal._id }}" method="POST">
+        <button class="btn btn-danger btn-sm">Delete Meal</button>
+      </form>
+    </div>
+    {{/if}}
+  </div>
+</div>

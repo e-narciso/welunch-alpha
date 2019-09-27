@@ -1,3 +1,6 @@
+<div class="movies-head">
+  <h2>Second Ingredients</h2>
+</div>
 <div class="row mx-auto text-center">
   {{#each ingredientsB}}
   <div class="col-md-3 artist mx-auto d-block text-center" style="margin-bottom: 10px">
@@ -31,7 +34,7 @@
     {{/each}}
   </div>
     {{#if this.mine}}
-    <div class="form-inline justify-content-center">
+    <div class="form-inline justify-content-center ed-buttons">
       <a href="/ingredients-b/edit/{{ this._id }}" class="btn btn-secondary btn-sm"
         >Edit Ingredient</a
       >

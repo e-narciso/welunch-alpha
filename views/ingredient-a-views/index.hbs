@@ -1,3 +1,6 @@
+<div class="movies-head">
+  <h2>First Ingredients</h2>
+</div>
 <div class="row mx-auto text-center">
   {{#each ingredientsA}}
   <div class="col-md-3 artist mx-auto d-block text-center" style="margin-bottom: 10px">
@@ -28,16 +31,16 @@
     {{/each}}
   </ul>
     <div class="card-body">
-      {{#each filteredMeals}}
+      {{#each this.mealsCreated}}
     <a href="/meals/details/{{this._id}}" class="btn-link"><em>{{this.name}}</em></a>
     {{/each}}
   </div>
-    {{#if ../theUser.isAdmin}}
-    <div class="form-inline justify-content-center">
-      <a href="/ingredients-a/edit/{{ this._id }}" class="btn btn-secondary btn-sm"
+    {{#if this.mine}}
+    <div class="form-inline justify-content-center ed-buttons">
+      <a href="/ingredients-b/edit/{{ this._id }}" class="btn btn-secondary btn-sm"
         >Edit Ingredient</a
       >
-      <form action="/ingredients-a/delete/{{ this._id }}" method="POST">
+      <form action="/ingredients-b/delete/{{ this._id }}" method="POST">
         <button class="btn btn-danger btn-sm">Delete Ingredient</button>
       </form>
     </div>

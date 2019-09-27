@@ -1,0 +1,46 @@
+<h2 class="movies-head">
+  Edit Information for <em>{{ meal.name }}</em>
+</h2>
+
+<div class="form-page">
+<form
+  action="/meals/update/{{ meal._id }}"
+  method="POST"
+>
+  <div class="form-group">
+    <label for="mealBody">Develop and Share Your Own Recipe</label>
+    <textarea
+      class="form-control"
+      id="mealBody"
+      aria-describedby="bodyHelp"
+      name="theBody"
+      rows="3"
+      >{{ meal.body }}</textarea
+    >
+    <script>
+      CKEDITOR.replace("theBody");
+    </script>
+  </div>
+  <div class="form-group">
+    <label for="mealImage">Upload Photograph or Fanart</label>
+    <input
+      type="file"
+      class="form-control smaller"
+      id="mealImage"
+      aria-describedby="imageHelp"
+      value="{{ meal.image }}"
+      name="theImage"
+    />
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+  <a href="/meals" class="btn btn-secondary">Cancel</a>
+</form>
+<form action="/meals/delete/{{ meal._id }}" method="POST">
+  <button
+    class="btn btn-danger btn-sm"
+  >
+    Delete Ingredient
+  </button>
+</form>
+
+</div>

@@ -15,7 +15,7 @@ html {
   background: #FF0000; }
 
 body {
-  font: 14px "Varela Round", Helvetica, Arial, sans-serif;
+  font: 14px "Roboto", Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -72,15 +72,15 @@ a {
   height: 80%; }
 
 .movies-head {
-  padding: 20px;
-  margin-left: 50px; }
+  padding: 20px; }
+
+@media (max-width: 576px) {
+  .movies-head {
+    text-align: center; } }
 
 @media (min-width: 576px) {
-  .col-sm {
+  .col-md {
     flex-grow: 0 !important; } }
-
-.movie-description {
-  max-width: 70%; }
 
 .hidden {
   display: none; }
@@ -136,5 +136,44 @@ a {
 
 .smaller {
   width: 250px; }
+
+.splash {
+  margin-top: 15vh;
+  width: 50vw; }
+
+.form-page {
+  width: 500px;
+  margin-left: 100px; }
+
+.meal-img {
+  width: 30vw; }
+
+.selected-meal {
+  padding: 30px; }
+
+@media (max-width: 750px) {
+  .splash {
+    margin-top: 5vh;
+    width: 90vw; }
+  .splash h1 {
+    font-size: 5vh; }
+  .form-page {
+    width: 90vw;
+    margin-left: 5vw; }
+  .meal-img {
+    width: 75vw;
+    padding: 30px;
+    margin: 0 auto; }
+  .selected-meal {
+    margin: 0 auto;
+    padding: 0; }
+    .selected-meal h5 {
+      font-size: .8rem; } }
+
+.ed-buttons {
+  padding: 10px; }
+
+.btn-sm {
+  margin: 5px 0 0 0; }
 
 /*# sourceMappingURL=style.css.map */

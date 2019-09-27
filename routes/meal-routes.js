@@ -8,6 +8,8 @@ const multer = require("multer");
 
 router.get("/meals", (req, res, next) => {
   Meal.find()
+    .populate("first")
+    .populate("second")
     .then(allTheMeals => {
       if (req.user) {
         allTheMeals.forEach(eachMeal => {
@@ -16,7 +18,7 @@ router.get("/meals", (req, res, next) => {
           }
         });
       }
-      console.log(allTheMeals);
+      // console.log(allTheMeals);
       res.render("meal-views/index", {
         meals: allTheMeals
       });
@@ -77,5 +79,70 @@ router.post("/create-random-meal", (req, res, next) => {
       next(err);
     });
 });
+
+router.get("/meals/details/:id", (req, res, next) => {
+  let id = req.params.id;
+  Meal.findById(id)
+    .populate("first")
+    .populate("second")
+    .then(thisMeal => {
+      if (req.user) {
+        if (req.user._id.equals(thisMeal.creator) || req.user.isAdmin) {
+          thisMeal.mine = true;
+        }
+      }
+      console.log(thisMeal.body);
+      res.render("meal-views/show", { meal: thisMeal });
+    })
+    .catch(err => {
+      next(err);
+    });
+});
+
+router.post("/meals/delete/:id", (req, res, next) => {
+  let id = req.params.id;
+  Meal.findByIdAndRemove(id)
+    .then(result => {
+      res.redirect("/meals");
+    })
+    .catch(err => {
+      next(err);
+    });
+});
+
+router.get("/meals/edit/:id", (req, res, next) => {
+  let id = req.params.id;
+  Meal.findById(id)
+    .then(theMeal => {
+      console.log(theMeal);
+      res.render("meal-views/edit", { meal: theMeal });
+    })
+    .catch(err => {
+      next(err);
+    });
+});
+
+router.post(
+  "/meals/update/:id",
+  uploadCloud.single("theImage"),
+  (req, res, next) => {
+    let id = req.params.id;
+
+    let mealObj = {};
+
+    mealObj.body = req.body.theBody;
+    if (req.file) {
+      mealObj.image = req.file.url;
+    }
+
+    Meal.findByIdAndUpdate(id, mealObj)
+      .then(result => {
+        res.redirect("/meals/");
+      })
+      .catch(err => {
+        next(err);
+      });
+  }
+);
 
 module.exports = router;

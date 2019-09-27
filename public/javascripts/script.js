@@ -1,9 +1,11 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+    console.log("IronGenerator JS imported successfully!");
 
-  console.log('IronGenerator JS imported successfully!');
-
-}, false);
-
+  },
+  false
+);
 
 // shuffleArr(ingredientsA[0].data[0]) = a
 // shuffleArr(ingredientsB[0].data[0]) = b

@@ -138,7 +138,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // default value for title local
-app.locals.title = "WeLunch – Pre-Alpha";
+app.locals.title = "WeLunch";
 
 // creating a universal variable in all HBS files called "theUser"
 // this variable is equal to the user in the session
