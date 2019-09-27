@@ -1,9 +1,8 @@
 <h2 class="movies-head">Edit Information for <em>{{ ingredient.name }}</em></h2>
-
+<div class="form-page">
 <form
   action="/ingredients-a/update/{{ ingredient._id }}"
   method="POST"
-  class="form-page"
 >
   <div class="form-group">
     <label for="ingredientName">Name</label>
@@ -54,5 +53,6 @@
   <a href="/ingredients-a" class="btn btn-secondary">Cancel</a>
 </form>
       <form action="/ingredients-a/delete/{{ this._id }}" method="POST">
-        <button class="btn btn-danger btn-sm" style="margin-left:100px; margin-top:5px">Delete Ingredient</button>
+        <button class="btn btn-danger btn-sm" >Delete Ingredient</button>
       </form>
+      </div>

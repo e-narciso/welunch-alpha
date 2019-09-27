@@ -20,19 +20,12 @@
             <em>{{ this.name }}</em>
           </h5>
           </a>
-        {{!-- <button class="fetch-details-button" data-id="{{ this._id }}">
-          See Details
-        </button> --}}
       </div>
   <ul class="list-group list-group-flush text-left">
     <li class="list-group-item" style="color: black" >Ingredient A: {{this.first.name}}</li>
     <li class="list-group-item" style="color: black" >Ingredient B: {{this.second.name}}</li>
   </ul>
-    {{!-- <div class="card-body">
-      {{#each filteredMeals}}
-    <a href="/meals/details/{{this._id}}" class="btn-link"><em>{{this.name}}</em></a>
-    {{/each}}
-  </div> --}}
+    </div>
     {{#if this.mine}}
     <div class="form-inline justify-content-center ed-buttons">
       <a href="/meals/edit/{{ this._id }}" class="btn btn-secondary btn-sm"
@@ -43,7 +36,6 @@
       </form>
     </div>
     {{/if}}
-    </div>
 
   </div>
 
