@@ -6,7 +6,7 @@
   <form
     action="/account/update"
     method="POST"
-    class="user-form"
+    {{!-- class="user-form" --}}
     enctype="multipart/form-data"
   >
     <img
@@ -70,14 +70,14 @@
     {{/if}}
   </form>
   <form action="/account/delete-my-account" method="POST">
-    <button class="btn btn-danger">Delete Account</button>
+    <button class="btn btn-danger btn-sm">Delete Account</button>
   </form>
 </div>
 {{else}}
+<div class="form-page">
 <form
   action="/account/google-update"
   method="POST"
-  style="width:500px; margin-left:100px"
 >
   <img
     class="card-img-top mx-auto d-block"
@@ -109,11 +109,12 @@
     />
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
+</form>
   <form action="/account/delete-my-account" method="POST">
-    <button class="btn btn-danger">Delete Account</button>
+    <button class="btn btn-danger btn-sm">Delete Account</button>
     {{#if successMessage}}
     <div class="success-message">{{ successMessage }}</div>
     {{/if}}
   </form>
-</form>
 {{/if}}
+</div>
