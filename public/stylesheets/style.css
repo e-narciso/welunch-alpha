@@ -171,9 +171,13 @@ a {
       font-size: .8rem; } }
 
 .ed-buttons {
-  padding: 10px; }
+  padding: 0 10px 10px 10px; }
 
 .btn-sm {
   margin: 5px 0 0 0; }
+
+.meals-made {
+  line-height: 20px;
+  margin-bottom: 0; }
 
 /*# sourceMappingURL=style.css.map */

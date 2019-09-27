@@ -30,7 +30,7 @@
   </ul>
     <div class="card-body">
       {{#each this.mealsCreated}}
-    <a href="/meals/details/{{this._id}}" class="btn-link"><em>{{this.name}}</em></a>
+    <a href="/meals/details/{{this._id}}" class="btn-link"><em><p class="meals-made">{{this.name}}</p></em></a>
     {{/each}}
   </div>
     {{#if this.mine}}
